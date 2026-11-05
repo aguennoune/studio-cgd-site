@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ThemeToggle from "./ThemeToggle.jsx";
 
 export default function Nav({ sections }) {
   const [active, setActive] = useState(sections[0][0]);
@@ -21,6 +22,7 @@ export default function Nav({ sections }) {
     <header className="nav">
       <div className="wrap nav-in">
         <a className="brand" href="#accueil">Studio CGD</a>
+        <ThemeToggle />
         <button className="nav-toggle" aria-expanded={open} aria-controls="nav-links" onClick={() => setOpen(!open)}>
           Menu
         </button>

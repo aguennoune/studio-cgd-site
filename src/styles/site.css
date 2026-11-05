@@ -69,3 +69,20 @@ tr:last-child td { border-bottom: 0; }
 .chip { font-family: var(--mono); font-size: .74rem; margin-right: 6px; }
 .res { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
 .footer { border-top: 1px solid var(--rule); padding-block: 20px 40px; color: var(--muted); font-size: .86rem; }
+
+.theme { display: inline-flex; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; margin-left: auto; }
+.theme button { font: inherit; font-size: .78rem; background: var(--paper); color: var(--muted); border: 0; padding: 4px 9px; cursor: pointer; }
+.theme button + button { border-left: 1px solid var(--rule); }
+.theme button[aria-pressed="true"] { background: var(--teal-soft); color: var(--ink); }
+.nav-in .brand { margin-right: 8px; }
+
+.form { display: grid; gap: 14px; }
+.form label { display: grid; gap: 6px; font-size: .92rem; min-width: 0; }
+.row2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 14px; }
+.form input, .form select, .form textarea { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; width: 100%; }
+.form input:focus-visible, .form select:focus-visible, .form textarea:focus-visible { border-color: var(--teal); }
+.form .consent { grid-template-columns: auto 1fr; align-items: start; gap: 10px; }
+.form .consent input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--teal); }
+.form-foot { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.btn:disabled { opacity: .6; cursor: wait; }
+button.btn { font: inherit; font-weight: 600; cursor: pointer; }

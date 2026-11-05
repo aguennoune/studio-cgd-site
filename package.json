@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check-dist": "node scripts/check-dist.mjs"
+    "check-dist": "node scripts/check-dist.mjs",
+    "form-config": "node scripts/form-config.mjs"
   },
   "dependencies": {
     "react": "18.3.1",
