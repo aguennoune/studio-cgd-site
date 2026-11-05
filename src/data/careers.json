@@ -1,0 +1,7 @@
+[
+  { "role": "Consultant fonctionnel ERP", "skills": ["F1", "F2", "F3", "X2"], "focus": "Recueil du besoin, paramétrage, formation des utilisateurs" },
+  { "role": "Développeur Odoo", "skills": ["T1", "T2"], "focus": "Addons Python, vues, tests, mises à niveau" },
+  { "role": "Consultant techno-fonctionnel", "skills": ["F1", "F2", "T1", "T2"], "focus": "Faire le pont entre métier et code" },
+  { "role": "Spécialiste migration et intégration", "skills": ["T2", "T3", "X1"], "focus": "Reprise de données, connecteurs, montées de version" },
+  { "role": "Chef de projet ERP", "skills": ["F1", "X1", "X2"], "focus": "Étapes, indicateurs, conduite du changement" }
+]

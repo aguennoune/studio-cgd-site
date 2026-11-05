@@ -1,0 +1,28 @@
+{
+  "name": "studio-cgd-site",
+  "root": "apps/studio-cgd-site",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "tags": ["scope:frontend", "layer:ui", "domain:studio-cgd", "odoo-project:12"],
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": { "cwd": "apps/studio-cgd-site", "command": "npm run dev" }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/dist"],
+      "options": { "cwd": "apps/studio-cgd-site", "command": "npm run build" }
+    },
+    "check-dist": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": { "cwd": "apps/studio-cgd-site", "command": "npm run check-dist" }
+    },
+    "preview": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": { "cwd": "apps/studio-cgd-site", "command": "npm run preview" }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+/* Studio CGD tokens — same palette as the plan artifact. System fonts until self-hosted fonts are chosen (no third-party font calls, loi 09-08). */
+:root {
+  --bg: #f4f6f4; --paper: #ffffff; --ink: #17201e; --muted: #5b6763; --rule: #d6ddd9;
+  --teal: #0e6a5d; --teal-soft: #dcefea; --ochre: #9a6312; --ochre-soft: #f6ead6;
+  --display: "Helvetica Neue", Arial, system-ui, sans-serif;
+  --body: system-ui, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1514; --paper: #161e1c; --ink: #e6ece9; --muted: #9aa8a3; --rule: #2a3633;
+    --teal: #4cc2ad; --teal-soft: #173a34; --ochre: #e0a54a; --ochre-soft: #3a2c15;
+    color-scheme: dark;
+  }
+}

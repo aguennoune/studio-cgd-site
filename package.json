@@ -1,0 +1,21 @@
+{
+  "name": "@studio-cgd/site",
+  "version": "0.1.0",
+  "description": "Studio CGD — ERP in-demand skills site for GitHub Pages (React views in JSX, built by Vite)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check-dist": "node scripts/check-dist.mjs"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "4.3.1",
+    "vite": "5.4.0"
+  }
+}
