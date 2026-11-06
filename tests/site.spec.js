@@ -69,8 +69,11 @@ test("event rule: booked before the date, attended after it, nothing else", () =
 
 test("skip link lands on the main content", async ({ page }) => {
   await page.goto("./");
+  const skip = page.getByRole("link", { name: "Aller au contenu" });
+  // Wait for React to render the page: a Tab sent before that lands on <body>.
+  await expect(skip).toBeAttached();
   await page.keyboard.press("Tab");
-  await expect(page.getByRole("link", { name: "Aller au contenu" })).toBeFocused();
+  await expect(skip).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/#contenu$/);
 });
