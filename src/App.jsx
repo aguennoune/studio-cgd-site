@@ -23,9 +23,9 @@ export const SECTIONS = [
 export default function App() {
   return (
     <>
-      <a className="skip" href="#competences">Aller au contenu</a>
+      <a className="skip" href="#contenu">Aller au contenu</a>
       <Nav sections={SECTIONS} />
-      <main>
+      <main id="contenu" tabIndex={-1}>
         <Accueil />
         <Competences />
         <Formations />

@@ -10,7 +10,7 @@ export default function Ressources() {
           <li key={href}><a href={href} target="_blank" rel="noopener">{title}</a> <span className="muted">· {source}</span></li>
         ))}
       </ul>
-      <p className="muted small">Liens vérifiés le {new Date(res.checked).toLocaleDateString("fr-FR")}.</p>
+      <p className="muted small">Liens vérifiés le {new Date(res.checked).toLocaleDateString("fr-FR", { timeZone: "UTC" })}.</p>
     </section>
   );
 }

@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { eventStatus } from "../src/lib/eventStatus.js";
 
 const SECTIONS = ["accueil", "competences", "formations", "temoignages", "carrieres", "ressources", "contact"];
 
@@ -47,13 +48,31 @@ test("family filter keeps only the matching cards", async ({ page }) => {
   await expect(page.locator("article.skill .code").first()).toContainText("Technique");
 });
 
-test("event line says 'prévue' before the show and disappears after it while unconfirmed", async ({ page }) => {
+test("event line stays hidden while the seat is not booked", async ({ page }) => {
+  // events.json ships booked: false until the user confirms the reservation.
   await page.clock.setFixedTime(new Date("2026-11-10T12:00:00+01:00"));
   await page.goto("./");
-  await expect(page.locator("#skill-X2 .event")).toContainText("participation prévue");
-  await page.clock.setFixedTime(new Date("2026-11-20T12:00:00+01:00"));
-  await page.reload();
+  await expect(page.locator("#skill-X2")).toBeVisible();
   await expect(page.locator("#skill-X2 .event")).toHaveCount(0);
+});
+
+test("event rule: booked before the date, attended after it, nothing else", () => {
+  const ev = { start: "2026-11-19T18:00:00+01:00", booked: false, attended: null };
+  const before = new Date("2026-11-10T12:00:00+01:00");
+  const after = new Date("2026-11-20T12:00:00+01:00");
+  expect(eventStatus(ev, before)).toBe("non réservé");
+  expect(eventStatus({ ...ev, booked: true }, before)).toBe("prévu");
+  expect(eventStatus({ ...ev, booked: true }, after)).toBe("à confirmer");
+  expect(eventStatus({ ...ev, booked: true, attended: true }, after)).toBe("a participé");
+  expect(eventStatus({ ...ev, attended: false }, after)).toBe("à confirmer");
+});
+
+test("skip link lands on the main content", async ({ page }) => {
+  await page.goto("./");
+  await page.keyboard.press("Tab");
+  await expect(page.getByRole("link", { name: "Aller au contenu" })).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/#contenu$/);
 });
 
 test("contact section never shows a dead form", async ({ page }) => {

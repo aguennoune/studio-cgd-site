@@ -1,13 +1,7 @@
 import events from "../data/events.json";
+import { eventStatus, SHOWN } from "../lib/eventStatus.js";
 
-// Rule as code: the site never claims a participation that has not happened.
-// Before the date -> "prévu". After the date -> "a participé" only when attended === true,
-// otherwise "à confirmer" until events.json is updated.
-export function eventStatus(ev, now = new Date()) {
-  if (now < new Date(ev.start)) return "prévu";
-  if (ev.attended === true) return "a participé";
-  return "à confirmer";
-}
+export { eventStatus };
 
 const fmt = (iso) =>
   new Date(iso).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Africa/Casablanca" });
@@ -16,7 +10,7 @@ export default function EventLine({ id }) {
   const ev = events.find((e) => e.id === id);
   if (!ev) return null;
   const st = eventStatus(ev);
-  if (st === "à confirmer") return null;
+  if (!SHOWN.has(st)) return null;
   return (
     <p className="event">
       <span className="lbl">Écosystème</span>

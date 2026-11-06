@@ -6,6 +6,7 @@
     "start": "2026-11-19T18:00:00+01:00",
     "kind": "Conférence et démonstration de la nouvelle version, témoignages clients, réseautage",
     "role": "Participant invité",
+    "booked": false,
     "attended": null,
     "url": "https://www.odoo.com/event" }
 ]

@@ -36,7 +36,7 @@ Le formulaire est dessiné par le site et envoie vers un Google Form. Il reste i
 
 - Aucun salaire, prix ou chiffre de marché sans source datée.
 - Témoignages publiés seulement avec l'accord écrit de la personne citée.
-- Événements : `src/data/events.json`. Avant la date, « participation prévue » ; après, la mention n'apparaît que si `attended` vaut `true`.
+- Événements : `src/data/events.json` (règle dans `src/lib/eventStatus.js`). Avant la date, « participation prévue » n'apparaît que si `booked` vaut `true` (place réservée) ; après, la mention n'apparaît que si `attended` vaut `true`.
 - Odoo est une marque d'Odoo S.A. Ce site présente le travail du Studio sur Odoo ; il n'est ni édité ni approuvé par Odoo S.A.
 
 ## Déploiement

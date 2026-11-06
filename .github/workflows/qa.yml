@@ -5,6 +5,9 @@ on:
   pull_request:
   workflow_dispatch:
   workflow_call:
+  # Weekly link check: job ads and articles expire; a dead link shows red here without blocking a deploy.
+  schedule:
+    - cron: "0 6 * * 1"
 permissions:
   contents: read
 jobs:
@@ -51,6 +54,9 @@ jobs:
   links:
     name: Links
     runs-on: ubuntu-latest
+    # On a deploy (push to main) a dead external link is reported, not blocking;
+    # on pull requests, manual and weekly runs it fails the run.
+    continue-on-error: ${{ github.event_name == 'push' }}
     steps:
       - uses: actions/checkout@v4
       # 403 and 429: some job boards block automated clients; the link itself still works for people.
