@@ -22,7 +22,7 @@ export default function ContactForm() {
     const E = config.entries;
     body.append(E.name, v.name.trim());
     body.append(E.email, v.email.trim());
-    body.append(E.organization, v.organization.trim());
+    body.append(E.organization, v.organization.trim() || "Non renseignée"); // required in the Google Form
     body.append(E.skill, v.skill);
     body.append(E.message, v.message.trim());
     body.append(E.consent, `Oui, ${new Date().toISOString()}`);
