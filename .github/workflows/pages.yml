@@ -1,5 +1,5 @@
-# Copy to .github/workflows/pages.yml at the root of the GitHub repository that hosts the site
-# (checklist I5). Builds the JSX views with Vite and publishes dist/ to GitHub Pages.
+# Builds the JSX views with Vite and publishes dist/ to GitHub Pages (checklist I5).
+# Repository settings > Pages > Source: GitHub Actions.
 name: Pages
 on:
   push:

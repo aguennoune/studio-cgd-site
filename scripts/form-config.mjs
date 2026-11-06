@@ -2,7 +2,7 @@
 // In Google Forms: ⋮ > "Obtenir le lien prérempli", type these exact values, then "Obtenir le lien":
 //   Nom = NOM, E-mail = EMAIL, Organisation = ORGANISATION, Compétence = COMPETENCE,
 //   Message = MESSAGE, Consentement = CONSENTEMENT
-// Usage: node scripts/form-config.mjs "<pre-filled link>"
+// Usage: npm run form-config -- "<pre-filled link>"
 import { writeFileSync } from "node:fs";
 
 const MARKERS = { NOM: "name", EMAIL: "email", ORGANISATION: "organization", COMPETENCE: "skill", MESSAGE: "message", CONSENTEMENT: "consent" };
