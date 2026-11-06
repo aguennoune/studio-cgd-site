@@ -88,3 +88,32 @@ test("contact form posts the six Google Form fields (request intercepted, nothin
   for (const entry of Object.values(config.entries)) expect(posted.body.get(entry), entry).toBeTruthy();
   expect(posted.body.get(config.entries.organization)).toBe("Non renseignée");
 });
+
+test("campaign source from a social link travels with the form (request intercepted)", async ({ page }) => {
+  const config = (await import("../src/data/contact.json", { with: { type: "json" } })).default;
+  test.skip(!config.formId, "form not linked yet");
+  let consent = null;
+  await page.route("https://docs.google.com/forms/**", async (route) => {
+    consent = new URLSearchParams(route.request().postData() || "").get(config.entries.consent);
+    await route.fulfill({ status: 200, body: "" });
+  });
+  await page.goto("./?utm_source=LinkedIn&utm_medium=social&utm_campaign=lancement-site<script>#contact");
+  await page.fill("#cf-name", "Test QA");
+  await page.fill("#cf-email", "qa@example.org");
+  await page.fill("#cf-org", "QA");
+  await page.selectOption("#cf-skill", { index: 2 });
+  await page.fill("#cf-message", "Test UTM.");
+  await page.check("#cf-consent");
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(page.locator("#contact")).toContainText("Message envoyé");
+  expect(consent).toMatch(/^Oui, \d{4}-\d\d-\d\dT.*, utm=linkedin\/social\/lancement-sitescript$/);
+});
+
+test("share preview: Open Graph image is declared and served", async ({ page, request }) => {
+  await page.goto("./");
+  const img = await page.locator('meta[property="og:image"]').getAttribute("content");
+  expect(img).toBe("https://aguennoune.github.io/studio-cgd-site/og-image.png");
+  const res = await request.get("og-image.png");
+  expect(res.status()).toBe(200);
+  expect(res.headers()["content-type"]).toContain("image/png");
+});

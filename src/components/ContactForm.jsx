@@ -10,6 +10,22 @@ const viewUrl = ready ? `https://docs.google.com/forms/d/e/${config.formId}/view
 
 const EMPTY = { name: "", email: "", organization: "", skill: "", message: "", consent: false };
 
+// Campaign tracking for social posts: ?utm_source=linkedin&utm_medium=social&utm_campaign=...
+// Kept in sessionStorage so it survives in-page navigation, sent with the consent line,
+// and read back by the CRM importer. Only short [a-z0-9_-] tokens are kept.
+const UTM_KEY = "studio-cgd-utm";
+export function readUtm() {
+  const clean = (v) => (v || "").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 40);
+  const q = new URLSearchParams(window.location.search);
+  const fromUrl = ["utm_source", "utm_medium", "utm_campaign"].map((k) => clean(q.get(k)));
+  try {
+    if (fromUrl[0]) sessionStorage.setItem(UTM_KEY, fromUrl.join("/"));
+    return sessionStorage.getItem(UTM_KEY) || "";
+  } catch {
+    return fromUrl[0] ? fromUrl.join("/") : "";
+  }
+}
+
 export default function ContactForm() {
   const [v, setV] = useState(EMPTY);
   const [state, setState] = useState("idle"); // idle | sending | sent | error
@@ -25,7 +41,8 @@ export default function ContactForm() {
     body.append(E.organization, v.organization.trim() || "Non renseignée"); // required in the Google Form
     body.append(E.skill, v.skill);
     body.append(E.message, v.message.trim());
-    body.append(E.consent, `Oui, ${new Date().toISOString()}`);
+    const utm = readUtm();
+    body.append(E.consent, `Oui, ${new Date().toISOString()}${utm ? `, utm=${utm}` : ""}`);
     setState("sending");
     try {
       await fetch(`https://docs.google.com/forms/d/e/${config.formId}/formResponse`, { method: "POST", mode: "no-cors", body });

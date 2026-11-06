@@ -1,4 +1,7 @@
 import Nav from "./components/Nav.jsx";
+import { readUtm } from "./components/ContactForm.jsx";
+
+readUtm();
 import Accueil from "./sections/Accueil.jsx";
 import Competences from "./sections/Competences.jsx";
 import Formations from "./sections/Formations.jsx";
