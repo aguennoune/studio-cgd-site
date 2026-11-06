@@ -33,7 +33,7 @@
     "what": ["Tableaux de bord et indicateurs (Balanced Scorecard)", "IA intégrée aux processus", "Qualité des données comme préalable"],
     "modules": ["spreadsheet_dashboard"],
     "proof": "Indicateurs par perspective, modèle prédictif sur le graphe de la base, tuteur IA",
-    "links": [["SAP toujours demandé ? compétences IA (Edoxi)", "https://www.edoxi.com/studyhub-detail/is-sap-still-in-demand"], ["Rapport marché ERP 2026 (KORE1)", "https://www.kore1.com/erp-talent-market-report-2026/"]] },
+    "links": [["Modules SAP demandés en 2026, IA Joule (Edoxi)", "https://www.edoxi.com/studyhub-detail/sap-modules-demand-among-london-employers"], ["Rapport marché ERP 2026 (KORE1)", "https://www.kore1.com/erp-talent-market-report-2026/"]] },
   { "code": "X2", "family": "Transverse", "status": "P", "name": "Conduite de projet, formation et veille",
     "what": ["Planifier en étapes (Prototype → QA)", "Former les utilisateurs, rédiger la documentation", "Veille sur l'écosystème et les nouvelles versions"],
     "modules": ["project", "website_slides", "hr_timesheet", "event"],
