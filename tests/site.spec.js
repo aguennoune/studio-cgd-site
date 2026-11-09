@@ -7,9 +7,17 @@ const SECTIONS = ["accueil", "competences", "formations", "temoignages", "carrie
 test("the seven sections render and the nav reaches each one", async ({ page }) => {
   await page.goto("./");
   for (const id of SECTIONS) await expect(page.locator(`section#${id}`)).toBeVisible();
+  // On a phone the links sit behind the Menu button: open it first, and it must close after the jump.
+  const menu = page.getByRole("button", { name: /menu/i });
+  const phone = await menu.isVisible();
+  if (phone) {
+    await menu.click();
+    await expect(menu).toHaveAttribute("aria-expanded", "true");
+  }
   await page.getByRole("navigation", { name: "Sections" }).getByRole("link", { name: "Carrières" }).click();
   await expect(page).toHaveURL(/#carrieres$/);
   await expect(page.locator("section#carrieres h2")).toBeInViewport();
+  if (phone) await expect(menu).toHaveAttribute("aria-expanded", "false");
 });
 
 for (const width of [360, 768, 1280]) {
