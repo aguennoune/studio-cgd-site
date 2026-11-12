@@ -147,3 +147,35 @@ test("share preview: Open Graph image is declared and served", async ({ page, re
   expect(res.status()).toBe(200);
   expect(res.headers()["content-type"]).toContain("image/png");
 });
+
+test("proven competences show a summary only, never the content", async ({ page }) => {
+  const scope = (await import("../src/data/scope.json", { with: { type: "json" } })).default;
+  test.skip(!scope.skills.length, "no proven competence yet");
+  await page.goto("./#competences");
+  const proven = page.locator("#competences-prouvees");
+  await expect(proven.locator(".proven-card")).toHaveCount(scope.skills.length);
+  await expect(proven).toContainText(`Citée dans ${Math.round(scope.skills[0].share * 100)} % des offres`);
+  await expect(proven).toContainText(scope.skills[0].proof);
+  await expect(proven).not.toContainText("utm_source"); // no post draft on the site
+});
+
+test("asking for the content fills the form but leaves consent to the visitor", async ({ page }) => {
+  const scope = (await import("../src/data/scope.json", { with: { type: "json" } })).default;
+  test.skip(!scope.skills.length, "no proven competence yet");
+  await page.goto("./#competences");
+  await page.locator("#competences-prouvees .proven-card").first().getByRole("button", { name: "Demander le contenu" }).click();
+  await expect(page.locator("#cf-skill")).toHaveValue(`Contenu · ${scope.skills[0].label}`);
+  await expect(page.locator("#cf-message")).toHaveValue(new RegExp(scope.skills[0].format_label));
+  await expect(page.locator("#cf-consent")).not.toBeChecked();
+});
+
+test("a visitor from the campaign link sees the proven competences highlighted", async ({ page }) => {
+  const scope = (await import("../src/data/scope.json", { with: { type: "json" } })).default;
+  test.skip(!scope.skills.length, "no proven competence yet");
+  await page.goto(`./?utm_source=linkedin&utm_medium=social&utm_campaign=${scope.campaign}#competences`);
+  await expect(page.locator("#competences-prouvees")).toHaveClass(/from-campaign/);
+  await page.goto("./#competences");
+  await page.evaluate(() => sessionStorage.clear());
+  await page.reload();
+  await expect(page.locator("#competences-prouvees")).not.toHaveClass(/from-campaign/);
+});

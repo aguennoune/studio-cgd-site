@@ -1,0 +1,17 @@
+{
+  "profile": "Computer Graphic Designer",
+  "campaign": "lancement-site",
+  "sample": 7,
+  "scanned_at": "2026-11-12",
+  "skills": [
+    {
+      "skill": "javascript_owl",
+      "label": "JavaScript / OWL (frontend Odoo)",
+      "share": 0.571,
+      "frequency": 4,
+      "proof": "e7f2fa4 badge NER + c927a59 plan",
+      "format": "post",
+      "format_label": "Network post"
+    }
+  ]
+}

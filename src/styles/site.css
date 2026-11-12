@@ -86,3 +86,11 @@ tr:last-child td { border-bottom: 0; }
 .form-foot { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
 .btn:disabled { opacity: .6; cursor: wait; }
 button.btn { font: inherit; font-weight: 600; cursor: pointer; }
+
+/* Compétences prouvées (Key-Badge): summary only, content on request through the contact form */
+.proven { margin-top: 28px; display: grid; gap: 10px; }
+.proven h3 { margin: 0; }
+.proven-card { display: grid; gap: 8px; align-content: start; }
+.proven-card h4 { margin: 0; font-size: 1.02rem; }
+.proven-card .btn { justify-self: start; background: var(--paper); color: var(--teal); font: inherit; font-weight: 600; cursor: pointer; }
+.proven.from-campaign .proven-card { border-color: var(--teal); background: var(--teal-soft); }

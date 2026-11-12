@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import config from "../data/contact.json";
 import skills from "../data/skills.json";
+import scope from "../data/scope.json";
 
 // The form is drawn by the site (tokens, dark mode) and posts to Google Forms.
 // Google answers cross-site posts with an opaque response: the page can tell that the
@@ -29,6 +30,12 @@ export function readUtm() {
 export default function ContactForm() {
   const [v, setV] = useState(EMPTY);
   const [state, setState] = useState("idle"); // idle | sending | sent | error
+  // "Demander le contenu" on a proven competence fills the competence and the message; consent stays the visitor's.
+  useEffect(() => {
+    const onRequest = (e) => setV((cur) => ({ ...cur, skill: e.detail.skill, message: cur.message || e.detail.message }));
+    window.addEventListener("studio-cgd-request", onRequest);
+    return () => window.removeEventListener("studio-cgd-request", onRequest);
+  }, []);
   const set = (k) => (e) => setV({ ...v, [k]: e.target.type === "checkbox" ? e.target.checked : e.target.value });
 
   async function submit(e) {
@@ -69,6 +76,7 @@ export default function ContactForm() {
           <select id="cf-skill" required value={v.skill} onChange={set("skill")}>
             <option value="">Choisir…</option>
             {skills.map((s) => <option key={s.code} value={`${s.code} · ${s.name}`}>{s.code} · {s.name}</option>)}
+            {scope.skills.map((s) => <option key={s.skill} value={`Contenu · ${s.label}`}>Contenu · {s.label}</option>)}
             <option value="Autre">Autre</option>
           </select>
         </label>

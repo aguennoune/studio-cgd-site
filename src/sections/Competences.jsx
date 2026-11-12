@@ -1,6 +1,7 @@
 import { useState } from "react";
 import skills from "../data/skills.json";
 import SkillCard from "../components/SkillCard.jsx";
+import ProvenSkills from "../components/ProvenSkills.jsx";
 
 const FAMILIES = ["Toutes", "Fonctionnel", "Technique", "Transverse"];
 
@@ -18,6 +19,7 @@ export default function Competences() {
         ))}
       </div>
       <div className="grid">{shown.map((s) => <SkillCard key={s.code} {...s} />)}</div>
+      <ProvenSkills />
     </section>
   );
 }

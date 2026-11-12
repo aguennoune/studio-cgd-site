@@ -13,7 +13,8 @@
     "validate-html": "html-validate dist/index.html dist/404.html",
     "check-privacy": "node scripts/check-privacy.mjs",
     "e2e": "playwright test",
-    "qa": "npm run build && npm run check-dist && npm run validate-html && npm run check-privacy && npm run e2e -- --project=chromium"
+    "qa": "npm run build && npm run check-dist && npm run validate-html && npm run check-privacy && npm run e2e -- --project=chromium",
+    "scope-sync": "node scripts/scope-sync.mjs"
   },
   "dependencies": {
     "react": "18.3.1",
